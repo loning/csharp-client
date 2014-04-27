@@ -10,14 +10,14 @@ namespace BitPayTest
     {
         private BitPay bitpay;
         private Invoice basicInvoice;
-        private static String API_KEY = "Your BitPay API Key";
+        private static String API_KEY = "cef37bc3-0c69-4ebc-855b-8250f87f6fed";
         private static double BTC_EPSILON = .000000001;
         private static double EPSILON = .001;
 
         public BitPayTest()
         {
             double price = 100.0;
-            this.bitpay = new BitPay(API_KEY, "USD");
+            this.bitpay = new BitPay(API_KEY, "LTC");
             basicInvoice = this.bitpay.createInvoice(price);
         }
 
@@ -119,16 +119,10 @@ namespace BitPayTest
         {
             try
             {
-                // Arrange
-                double price = 100.0;
-
-                // Act
-                this.bitpay = new BitPay(API_KEY, "EUR");
-                Invoice invoice = this.bitpay.createInvoice(price);
-                Invoice retreivedInvoice = this.bitpay.getInvoice(invoice.id);
+                Invoice retreivedInvoice = this.bitpay.getInvoice(basicInvoice.id);
 
                 // Assert
-                string expected = invoice.id;
+                string expected = basicInvoice.id;
                 string actual = retreivedInvoice.id;
                 Assert.AreEqual(expected, actual, "Expected invoice not retreived");
             }
@@ -150,9 +144,26 @@ namespace BitPayTest
                 parameters.buyerEmail = "satoshi@bitpay.com";
                 parameters.fullNotifications = true;
                 parameters.notificationEmail = "satoshi@bitpay.com";
-
+                parameters.buyerAddress1 = "add1";
+                parameters.buyerAddress2 = "2";
+                parameters.buyerCity = "city";
+                parameters.buyerCountry = "country";
+                parameters.buyerEmail = "email";
+                parameters.buyerName = "name";
+                parameters.buyerPhone = "phone";
+                parameters.buyerState = "state";
+                parameters.buyerZip = "zip";
+                parameters.itemCode = "itemcode";
+                parameters.itemDesc = "itemdesc";
+                parameters.orderId = "orderid";
+                parameters.posData = "jkdsjlkfdsajklfdsjlkfsajdlkfdsjalkjfdslkjfdslk";
+                parameters.redirectURL = "kjfdskjdfsal";
+                parameters.notificationURL = "jklsafdjklfdsjl";
+                parameters.payouts = new Dictionary<string, decimal>();
+                parameters.payouts["address1"] = 1;
+                parameters.payouts["address2"] = 2;
                 // Act
-                this.bitpay = new BitPay(API_KEY, "USD");
+                this.bitpay = new BitPay(API_KEY, "LTC");
                 Invoice invoice = this.bitpay.createInvoice(price, parameters);
 
                 // Assert
