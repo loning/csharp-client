@@ -13,11 +13,11 @@ namespace BitPayAPI
     public class BitPay
     {
 
-        private static readonly string BASE_URL =
+        public static readonly string BASE_URL =
 #if DEBUG
  "http://localhost:53130/api/";
 #else
- "http://pay.ltctop.com/api/";
+ "http://www.blockpay.net/api/";
 #endif
         private string apiKey;
         private HttpClient client;
