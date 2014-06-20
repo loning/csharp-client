@@ -187,7 +187,10 @@ namespace BitPayAPI
                 throw new BitPayException("Error: " + obj.error.message);
             }
 
-            return new Invoice(obj);
+            var invoice= new Invoice(obj);
+            if (string.IsNullOrEmpty(invoice.id))
+                throw new BitPayException("Unknow: " + html);
+            return invoice;
         }
     }
 }
