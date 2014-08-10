@@ -17,7 +17,7 @@ namespace BitPayAPI
 #if DEBUG
  "http://localhost:53130/api/";
 #else
- "http://www.blockpay.net/api/";
+ "https://www.blockpay.net/api/";
 #endif
         private string apiKey;
         private HttpClient client;

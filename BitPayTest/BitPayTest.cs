@@ -10,14 +10,14 @@ namespace BitPayTest
     {
         private BitPay bitpay;
         private Invoice basicInvoice;
-        private static String API_KEY = "cef37bc3-0c69-4ebc-855b-8250f87f6fed";
-        private static double BTC_EPSILON = .000000001;
-        private static double EPSILON = .001;
+        private static String API_KEY = "6b2ffa7a-40d2-4ff6-ae75-05cee02fe93b	";
+        private static decimal BTC_EPSILON = .000000001M;
+        private static decimal EPSILON = .001M;
 
         public BitPayTest()
         {
-            double price = 100.0;
-            this.bitpay = new BitPay(API_KEY, "LTC");
+            decimal price = 100.0M;
+            this.bitpay = new BitPay(API_KEY, "BTC");
             basicInvoice = this.bitpay.createInvoice(price);
         }
 
@@ -51,16 +51,16 @@ namespace BitPayTest
             try
             {
                 // Arrange
-                double price = 0.1;
-                double expected = 0.1;
+                decimal price = 0.1M;
+                decimal expected = 0.1M;
 
                 // Act
                 this.bitpay = new BitPay(API_KEY, "BTC");
                 Invoice invoice = this.bitpay.createInvoice(price);
 
                 // Assert
-                double actual = invoice.btcPrice;
-                Assert.AreEqual(expected, actual, BTC_EPSILON, "Invoice not created correctly: 0.1BTC");
+                decimal actual = invoice.btcPrice;
+                Assert.AreEqual((double)expected, (double)actual, (double)BTC_EPSILON, "Invoice not created correctly: 0.1BTC");
             }
             catch (BitPayException ex)
             {
@@ -74,45 +74,45 @@ namespace BitPayTest
             try
             {
                 // Arrange
-                double price = 100.0;
-                double expected = 100.0;
+                decimal price = 100.0M;
+                decimal expected = 100.0M;
 
                 // Act
                 this.bitpay = new BitPay(API_KEY, "USD");
                 Invoice invoice = this.bitpay.createInvoice(price);
 
                 // Assert
-                double actual = invoice.price;
-                Assert.AreEqual(expected, actual, EPSILON, "Invoice not created correctly: 100USD");
+                var actual = invoice.price;
+                Assert.AreEqual((double)expected, (double)actual, (double)EPSILON, "Invoice not created correctly: 100USD");
             }
             catch (BitPayException ex)
             {
                 Assert.Fail(ex.getMessage());
             }
         }
-
+        /*
         [TestMethod]
         public void testShouldCreateInvoice100EUR()
         {
             try
             {
                 // Arrange
-                double price = 100.0;
-                double expected = 100.0;
+                decimal price = 100.0M;
+                decimal expected = 100.0M;
 
                 // Act
                 this.bitpay = new BitPay(API_KEY, "EUR");
                 Invoice invoice = this.bitpay.createInvoice(price);
 
                 // Assert
-                double actual = invoice.price;
-                Assert.AreEqual(expected, actual, EPSILON, "Invoice not created correctly: 100EUR");
+                var actual = invoice.price;
+                Assert.AreEqual((double)expected, (double)actual, (double)EPSILON, "Invoice not created correctly: 100EUR");
             }
             catch (BitPayException ex)
             {
                 Assert.Fail(ex.getMessage());
             }
-        }
+        }*/
 
         [TestMethod]
         public void testShouldGetInvoice()
@@ -138,7 +138,7 @@ namespace BitPayTest
             try
             {
                 // Arrange
-                double price = 100.0;
+                decimal price = 100.0M;
                 InvoiceParams parameters = new InvoiceParams();
                 parameters.buyerName = "Satoshi";
                 parameters.buyerEmail = "satoshi@bitpay.com";
@@ -163,7 +163,7 @@ namespace BitPayTest
                 parameters.payouts["address1"] = 1;
                 parameters.payouts["address2"] = 2;
                 // Act
-                this.bitpay = new BitPay(API_KEY, "LTC");
+                this.bitpay = new BitPay(API_KEY, "BTC");
                 Invoice invoice = this.bitpay.createInvoice(price, parameters);
 
                 // Assert
@@ -210,6 +210,7 @@ namespace BitPayTest
             Assert.IsTrue(rate != 0, "Exchange rate not retrieved: USD");
         }
 	
+        /*
         [TestMethod]
         public void testShouldGetEURExchangeRate()
         {
@@ -222,7 +223,7 @@ namespace BitPayTest
             // Assert
             decimal rate = rates.getRate("EUR");
             Assert.IsTrue(rate != 0, "Exchange rate not retrieved: EUR");
-        }
+        }*/
 	
         [TestMethod]
         public void testShouldGetCNYExchangeRate() 
