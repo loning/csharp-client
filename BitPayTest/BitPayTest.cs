@@ -10,14 +10,14 @@ namespace BitPayTest
     {
         private BitPay bitpay;
         private Invoice basicInvoice;
-        private static String API_KEY = "6b2ffa7a-40d2-4ff6-ae75-05cee02fe93b	";
+        private static String API_KEY = "00000002-0001-0001-0101-01010c010101";
         private static decimal BTC_EPSILON = .000000001M;
         private static decimal EPSILON = .001M;
 
         public BitPayTest()
         {
             decimal price = 100.0M;
-            this.bitpay = new BitPay(API_KEY, "BTC");
+            this.bitpay = new BitPay(API_KEY, "LTC");
             basicInvoice = this.bitpay.createInvoice(price);
         }
 
